@@ -6,6 +6,6 @@ class User {
 
   @override
   String toString() {
-    return "nome: $name";
+    return "nome: $name" + " senha: $password";
   }
 }

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:login_cadastro/controller/user_controller.dart';
-import 'package:login_cadastro/ui/widgets/appBar.dart';
+import 'package:cadastro/controller/user_controller.dart';
+import 'package:cadastro/ui/widgets/myAppBar.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
-  //criamos o obketo controller
+  //criamos o objeto controller
   UserController userController = UserController();
-  //variáveis do formulário
   final nomeController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(texto: 'Login'),
+      appBar: MyAppBar(texto: 'Login'),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -33,9 +32,19 @@ class Login extends StatelessWidget {
             const SizedBox(height: 8),
             ElevatedButton(
                 onPressed: () {
-                  userController.login(nomeController.text, passwordController.text);
+                  userController.login(
+                      context, nomeController.text, passwordController.text);
                 },
-                child: const Text('Login'))
+                child: const Text('Login')),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    userController.cadastro(
+                        context, nomeController.text, passwordController.text);
+                  },
+                  child: const Text('Cadastrar')),
+            ),
           ],
         ),
       ),
