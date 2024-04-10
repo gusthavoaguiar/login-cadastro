@@ -8,27 +8,27 @@ class TelaSucesso extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(texto: "Lista de atividades para fazer"),
-      body: ListaMaterias(),
+      body: ListaAtividades(),
     );
   }
 }
 
-class Materia {
+class Atividade {
   String nome;
   bool estudada;
 
-  Materia(this.nome, this.estudada);
+  Atividade(this.nome, this.estudada);
 }
 
-class ListaMaterias extends StatefulWidget {
+class ListaAtividades extends StatefulWidget {
   @override
-  _ListaMateriasState createState() => _ListaMateriasState();
+  _ListaAtividadesState createState() => _ListaAtividadesState();
 }
 
-class _ListaMateriasState extends State<ListaMaterias> {
+class _ListaAtividadesState extends State<ListaAtividades> {
   TextEditingController _controller = TextEditingController();
   TextEditingController _editController = TextEditingController();
-  List<Materia> materias = [];
+  List<Atividade> atividades = [];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class _ListaMateriasState extends State<ListaMaterias> {
                 child: TextField(
                   controller: _controller,
                   decoration: InputDecoration(
-                    hintText: "Nova matéria",
+                    hintText: "Nova atividade",
                   ),
                 ),
               ),
@@ -50,7 +50,7 @@ class _ListaMateriasState extends State<ListaMaterias> {
                 icon: Icon(Icons.add),
                 onPressed: () {
                   setState(() {
-                    materias.add(Materia(_controller.text, false));
+                    atividades.add(Atividade(_controller.text, false));
                     _controller.clear();
                   });
                 },
@@ -60,20 +60,20 @@ class _ListaMateriasState extends State<ListaMaterias> {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: materias.length,
+            itemCount: atividades.length,
             itemBuilder: (context, index) {
               return ListTile(
                 title: Row(
                   children: [
                     Checkbox(
-                      value: materias[index].estudada,
+                      value: atividades[index].estudada,
                       onChanged: (value) {
                         setState(() {
-                          materias[index].estudada = value!;
+                          atividades[index].estudada = value!;
                         });
                       },
                     ),
-                    Expanded(child: Text(materias[index].nome)),
+                    Expanded(child: Text(atividades[index].nome)),
                   ],
                 ),
                 trailing: Row(
@@ -82,12 +82,12 @@ class _ListaMateriasState extends State<ListaMaterias> {
                     IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: () {
-                        _editController.text = materias[index].nome;
+                        _editController.text = atividades[index].nome;
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text("Editar Matéria"),
+                              title: Text("Editar atividade"),
                               content: TextField(
                                 controller: _editController,
                                 decoration:
@@ -97,7 +97,7 @@ class _ListaMateriasState extends State<ListaMaterias> {
                                 TextButton(
                                   onPressed: () {
                                     setState(() {
-                                      materias[index].nome =
+                                      atividades[index].nome =
                                           _editController.text;
                                       Navigator.of(context).pop();
                                     });
@@ -120,7 +120,7 @@ class _ListaMateriasState extends State<ListaMaterias> {
                       icon: Icon(Icons.delete),
                       onPressed: () {
                         setState(() {
-                          materias.removeAt(index);
+                          atividades.removeAt(index);
                         });
                       },
                     ),
